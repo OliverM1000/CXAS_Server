@@ -1,0 +1,29 @@
+﻿
+
+
+
+Server
+    Environment Variables: XAS_NODE (beamline name)
+    read user from ics
+    DB_PREFIX = "b_"
+
+
+
+
+
+  How to change a user?
+    server needs to close all connections or rejects all connections with wrong names
+
+
+
+
+
+    DB
+	SET_User needs to invoke a change of ACTIVE_DB
+	CREATE NEW 
+
+
+
+
+Verbose Errors:
+res: ERROR OmServer.HandleClient CxasAcqServer.EvaluateRequest CxasAcqServer.EvaluateCommonRequest CRegionSrv.EvaluateRequest MakeTrajectory ValidateTrajectory OUTSIDE_OF_LIMITS minTriggerTime 0.0042

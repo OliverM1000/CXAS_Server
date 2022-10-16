@@ -1,0 +1,109 @@
+﻿
+
+-----------------------------------------------
+DB schema stand alone version
+-----------------------------------------------
+Tables
+    fpga_data
+	id		    int		    PK
+	deviceName	    varchar(45)
+	sessionId	    int
+	dataId		    int
+	dataLen		    int
+	data		    mediumblob
+	dataCreate	    timestamp
+	protectData	    bit(1)
+
+    scan
+	id		    int		    PK
+	sessionId	    int
+	runId		    int
+	scanName	    varchar(255)
+	beamlineName	    varchar(10)
+	encoderResolution   double
+	encoderOffset	    double
+	latticeSpacing	    double
+	trajectoryName	    varchar(255)
+	aiOffset_0	    double
+	...
+	aiOffset_7	    double
+	aiSlope_0	    double
+	...
+	aiSlope_7	    double
+	cntOffset_0	    double
+	...
+	cntOffset_31	    double
+-----------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------
+DB schema server version
+-----------------------------------------------
+Tables
+    fpga_data
+	id		    int		    PK
+	deviceName	    varchar(45)	
+	sessionId	    int
+	dataId		    int
+	dataLen		    int
+	data		    mediumblob
+	dataCreate	    timestamp
+	protectData	    bit(1)
+
+    scan (*)
+	id		    int		    PK
+	id_offset	    int		    FK
+	id_ calibration	    int		    FK
+	id_cregion	    int		    FK
+	
+	sessionId	    int
+	runId		    int
+
+	userName	    varchar(255)
+	scanName	    varchar(255)
+	beamlineName	    varchar(10)
+	comment0	    varchar(255)
+	...
+	comment3	    varchar(255)
+	
+	
+    calibration
+	id		    int		    PK
+	encoderResolution   double
+	encoderOffset	    double
+	latticeSpacing	    double
+
+    CREGION
+	id		    int		    PK
+	type		    varchar(8)
+	name		    varchar(255)
+	element		    varchar(4)
+	edge		    varchar(4)
+	points		    int
+	edgeEnergy	    double
+	e1		    double
+	e2		    double
+	eDot		    double
+	eDotDot		    double
+	k0		    double
+	k0Dot		    double
+	scaling		    double
+	tta		    double
+	ttd		    double
+
+    OFFSET
+	id		    int		PK
+	aiOffset_0	    double
+	...
+	aiOffset_7	    double
+	aiSlope_0	    double
+	...
+	aiSlope_7	    double
+	cntOffset_0	    double
+	...
+	cntOffset_31	    double
+	

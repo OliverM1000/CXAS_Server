@@ -1,0 +1,79 @@
+﻿ #region Constants
+        //----------------------------------
+        private const string PATH_DEF = "C:\\SSRL_LOCAL_OM\\CxasAcqServer\\Definitions\\";
+        //----------------------------------
+        private const Int32 OFFSET_COMMAND  = 0;
+        private const Int32 OFFSET_KEYWORD  = 1;
+        //----------------------------------
+        #endregion
+
+
+
+        #region Variables
+        //----------------------------------
+        private OmDB __DB;
+        //----------------------------------
+        #endregion
+
+
+
+        //==================================
+        public Daq(ref OmDB _db)
+        {
+            __DB = _db;
+        }
+        //==================================
+
+
+
+        #region Private Methods
+        //----------------------------------
+
+        //----------------------------------
+        #endregion
+
+
+
+        #region Public Methods
+        //----------------------------------
+        public Int32 EvaluateRequest(ref string[] _reqArr, ref string _res)
+        {
+            Int32 rt;
+            string error;
+            bool err = false;
+
+
+            if (__DB.InitError)
+            {
+                _res = "DB_INIT_ERROR";
+                err = true;
+            }
+
+
+            if (!err)
+            {
+                _res = "";
+                error = "";
+                switch (_reqArr[OFFSET_COMMAND].ToUpper())
+                {
+
+
+                    default:
+                        _res = "UNKNOWN_COMMAND";
+                        break;
+                }
+            }
+
+            if (err)
+            {
+                _res = this.GetType().Name + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + " " + _res;
+                return -1;
+            }
+
+            _res = _reqArr[OFFSET_COMMAND].ToUpper() + " " + _res;
+
+            return 1;
+
+        }
+        //----------------------------------
+        #endregion
