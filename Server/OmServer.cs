@@ -62,7 +62,7 @@ namespace Server
             _res = "";
             for (int i = 0; i < __clients.Count; i++)
             {
-                _res += "\r" + __clients[i].id.ToString(); 
+                _res += "\r" + __clients[i].id; 
             }
         }
         //----------------------------------------------------
@@ -92,21 +92,8 @@ namespace Server
             return -1;
         }
         //----------------------------------------------------
-        private void EchoReq(string _req, ref ClientObj _omClient)
-        {
-            Console.WriteLine(_omClient.id + " > " + _req);
-        }
-        private void EchoRes(string _res, ref ClientObj _omClient)
-        {
-            string shortRes;
 
-            if (_res.Length > MAX_MESSAGE_LEN)
-                shortRes = _res.Substring(0, MAX_MESSAGE_LEN) + " ...";
-            else
-                shortRes = _res;
 
-            Console.WriteLine(_omClient.id + " < " + shortRes);
-        }
         //----------------------------------------------------
         private void AcceptClients()
         {
@@ -143,8 +130,8 @@ namespace Server
                     if (req == null)
                         break;
 
+                    Console.WriteLine(omClient.id + " > " + req);
 
-                    EchoReq(req, ref omClient);
 
                     //####################################################
                     rt = __serverCallback(this, omClient.id, ref req, ref res);
@@ -164,7 +151,15 @@ namespace Server
                     writer.WriteLine(res);
                     writer.Flush();
 
-                    EchoReq(res, ref omClient);
+
+                    string shortRes;
+                    if (res.Length > 600)
+                        shortRes = res.Substring(0, MAX_MESSAGE_LEN) + " ...";
+                    else
+                        shortRes = res;
+
+                    Console.WriteLine(omClient.id + " < " + shortRes);
+
                 }
                 catch (Exception ex)
                 {

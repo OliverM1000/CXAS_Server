@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "G:\\00_Cloud\\NextCloud\\SLAC\\04_Projects\\CXAS\\Server\\Server_027.1\\Server\\Server.csproj": {}
+    "C:\\Users\\omueller\\OneDrive - SLAC National Accelerator Laboratory\\Desktop\\CXAS\\Client\\Server\\Server_026\\Server\\Server.csproj": {}
   },
   "projects": {
-    "G:\\00_Cloud\\NextCloud\\SLAC\\04_Projects\\CXAS\\Server\\Server_027.1\\Server\\Server.csproj": {
+    "C:\\Users\\omueller\\OneDrive - SLAC National Accelerator Laboratory\\Desktop\\CXAS\\Client\\Server\\Server_026\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\00_Cloud\\NextCloud\\SLAC\\04_Projects\\CXAS\\Server\\Server_027.1\\Server\\Server.csproj",
+        "projectUniqueName": "C:\\Users\\omueller\\OneDrive - SLAC National Accelerator Laboratory\\Desktop\\CXAS\\Client\\Server\\Server_026\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "G:\\00_Cloud\\NextCloud\\SLAC\\04_Projects\\CXAS\\Server\\Server_027.1\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\Oliver\\.nuget\\packages\\",
-        "outputPath": "G:\\00_Cloud\\NextCloud\\SLAC\\04_Projects\\CXAS\\Server\\Server_027.1\\Server\\obj\\",
+        "projectPath": "C:\\Users\\omueller\\OneDrive - SLAC National Accelerator Laboratory\\Desktop\\CXAS\\Client\\Server\\Server_026\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\omueller\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\omueller\\OneDrive - SLAC National Accelerator Laboratory\\Desktop\\CXAS\\Client\\Server\\Server_026\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Oliver\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\omueller\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,12 +43,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "MySql.Data": {
-              "target": "Package",
-              "version": "[8.0.29, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -59,12 +53,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     }
