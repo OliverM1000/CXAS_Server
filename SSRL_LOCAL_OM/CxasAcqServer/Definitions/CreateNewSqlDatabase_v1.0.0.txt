@@ -1,0 +1,152 @@
+CREATE DATABASE IF NOT EXISTS <NAME>;
+USE <NAME>;
+
+CREATE TABLE offset
+(
+	id					INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	offsetCreate		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	
+	aiOffset_0			DOUBLE DEFAULT -131071,
+	aiOffset_1			DOUBLE DEFAULT -131071,
+	aiOffset_2			DOUBLE DEFAULT -131071,
+	aiOffset_3			DOUBLE DEFAULT -131071,
+	aiOffset_4			DOUBLE DEFAULT -131071,
+	aiOffset_5			DOUBLE DEFAULT -131071,
+	aiOffset_6			DOUBLE DEFAULT -131071,
+	aiOffset_7			DOUBLE DEFAULT -131071,
+	
+	aiSlope_0			DOUBLE DEFAULT 1,
+	aiSlope_1			DOUBLE DEFAULT 1,
+	aiSlope_2			DOUBLE DEFAULT 1,
+	aiSlope_3			DOUBLE DEFAULT 1,
+	aiSlope_4			DOUBLE DEFAULT 1,
+	aiSlope_5			DOUBLE DEFAULT 1,
+	aiSlope_6			DOUBLE DEFAULT 1,
+	aiSlope_7			DOUBLE DEFAULT 1,
+	
+	cntOffset_0			INT DEFAULT 0,
+	cntOffset_1			INT DEFAULT 0,
+	cntOffset_2			INT DEFAULT 0,
+	cntOffset_3			INT DEFAULT 0,
+	cntOffset_4			INT DEFAULT 0,
+	cntOffset_5			INT DEFAULT 0,
+	cntOffset_6			INT DEFAULT 0,
+	cntOffset_7			INT DEFAULT 0,
+	cntOffset_8			INT DEFAULT 0,
+	cntOffset_9			INT DEFAULT 0,
+	cntOffset_10		INT DEFAULT 0,
+	cntOffset_11		INT DEFAULT 0,
+	cntOffset_12		INT DEFAULT 0,
+	cntOffset_13		INT DEFAULT 0,
+	cntOffset_14		INT DEFAULT 0,
+	cntOffset_15		INT DEFAULT 0,
+	cntOffset_16		INT DEFAULT 0,
+	cntOffset_17		INT DEFAULT 0,
+	cntOffset_18		INT DEFAULT 0,
+	cntOffset_19		INT DEFAULT 0,
+	cntOffset_20		INT DEFAULT 0,
+	cntOffset_21		INT DEFAULT 0,
+	cntOffset_22		INT DEFAULT 0,
+	cntOffset_23		INT DEFAULT 0,
+	cntOffset_24		INT DEFAULT 0,
+	cntOffset_25		INT DEFAULT 0,
+	cntOffset_26		INT DEFAULT 0,
+	cntOffset_27		INT DEFAULT 0,
+	cntOffset_28		INT DEFAULT 0,
+	cntOffset_29		INT DEFAULT 0,
+	cntOffset_30		INT DEFAULT 0,
+	cntOffset_31		INT DEFAULT 0
+);
+
+
+CREATE TABLE calibration
+(
+	id					INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	calibrationCreate	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	
+	encoderResolution	DOUBLE NOT NULL,
+	encoderOffset		DOUBLE NOT NULL,
+	latticeSpacing		DOUBLE NOT NULL
+);
+
+
+CREATE TABLE cregion
+(
+	id					INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,	
+	cregionCreate		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	comment_0			VARCHAR(255),
+	comment_1			VARCHAR(255),
+	comment_2			VARCHAR(255),
+	comment_3			VARCHAR(255),
+	
+	type				VARCHAR(8),
+	name				VARCHAR(255) NOT NULL UNIQUE,
+	element				VARCHAR(4),
+	edge				VARCHAR(4),
+	points				INT UNSIGNED NOT NULL,
+	edgeEnergy			DOUBLE NOT NULL,
+	e1					DOUBLE NOT NULL,
+	e2					DOUBLE NOT NULL,
+	
+	eDot				DOUBLE,
+	eDotDot				DOUBLE,
+	
+	k0					DOUBLE,
+	k0Dot				DOUBLE,
+	scaling				INT,
+	tta					DOUBLE,
+	ttd					DOUBLE
+);
+CREATE INDEX idx_name ON cregion(name);
+CREATE INDEX idx_element ON cregion(element, edge);
+
+
+CREATE TABLE scan
+(
+	id					INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_offset			INT UNSIGNED NOT NULL,
+    id_calibration		INT UNSIGNED NOT NULL,
+    id_cregion			INT UNSIGNED,
+	
+	sessionId			INT UNSIGNED NOT NULL,
+	runId				INT UNSIGNED NOT NULL,
+	
+	userName			VARCHAR(255),
+	scanName			VARCHAR(255),
+	beamlineName		VARCHAR(10),
+	scanCreate			TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	comment_0			VARCHAR(255),
+	comment_1			VARCHAR(255),
+	comment_2			VARCHAR(255),
+	comment_3			VARCHAR(255),
+	
+	FOREIGN KEY (id_offset) REFERENCES offset (id),
+    FOREIGN KEY (id_calibration) REFERENCES calibration (id),
+    FOREIGN KEY (id_cregion) REFERENCES cregion (id)
+);
+CREATE INDEX idx_sessionId ON scan(sessionId);
+CREATE INDEX idx_beamlineName on scan (beamlineName);
+CREATE INDEX idx_scanName ON scan(scanName);
+CREATE INDEX idx_sessionId_runId ON scan(sessionId, runId);
+
+
+CREATE TABLE fpga_data
+(
+	id			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id_scan		INT UNSIGNED NOT NULL,
+	
+	deviceName	VARCHAR(45),
+	sessionId	INT UNSIGNED NOT NULL,
+	dataId		INT UNSIGNED NOT NULL,
+	dataLen		INT UNSIGNED DEFAULT 0,
+	data		MEDIUMBLOB DEFAULT NULL,
+	dataCreate	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	protectData	BIT(1) NOT NULL DEFAULT 1,
+	
+	FOREIGN KEY (id_scan) REFERENCES scan (id)
+);
+CREATE INDEX idx_sessionId ON fpga_data(sessionId);
+CREATE INDEX idx_dataId ON fpga_data(dataId);
+CREATE INDEX idx_sessionId_dataId ON fpga_data(SessionId, dataId);
+
